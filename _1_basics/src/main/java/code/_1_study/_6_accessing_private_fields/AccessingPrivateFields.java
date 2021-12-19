@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 public class AccessingPrivateFields {
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
-        Student student = new Student("John", 21);
+        Student student = new Student("Petre", 21);
 
         readPrivateField(student);
 

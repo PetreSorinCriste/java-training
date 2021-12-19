@@ -6,11 +6,9 @@ public class Pawn {
     private int xCoordinate;
     private int yCoordinate;
     private PieceColor pieceColor;
-
     public Pawn(PieceColor pieceColor) {
         this.pieceColor = pieceColor;
     }
-
     public ChessBoard getChesssBoard() {
         return chessBoard;
     }
@@ -39,21 +37,45 @@ public class Pawn {
         return this.pieceColor;
     }
 
-    private void setPieceColor(PieceColor value) {
-        pieceColor = value;
-    }
+    void setPieceColor(PieceColor value) {
+        public void setPieceColor(PieceColor value) {
+            pieceColor = value;
+        }
 
-    public void Move(MovementType movementType, int newX, int newY) {
-        throw new UnsupportedOperationException("Need to implement Pawn.Move()");
-    }
+        public void Move(MovementType movementType, int newX, int newY) {
+            throw new UnsupportedOperationException("Need to implement Pawn.Move()");
+            if(movementType == MovementType.MOVE)
+                if(MoveValidator(newX,newY)){
+                    this.chessBoard.Move(this,newX,newY);
+                }
+            /*throw new UnsupportedOperationException("Need to implement Pawn.Move()");*/
+        }
 
-    @Override
-    public String toString() {
-        return CurrentPositionAsString();
-    }
+        public boolean MoveValidator(int nextX, int nextY){
+            switch (getPieceColor()){
+                case BLACK:
+                    if((nextY == getYCoordinate() || nextY == getYCoordinate() -1) && (nextX == getXCoordinate() || nextX == getXCoordinate() -1 || nextX == getXCoordinate() +1)){
+                        return true;
+                    }
+                    else
+                        return false;
+                case WHITE:
+                    if((nextY == getYCoordinate() || nextY == getYCoordinate() +1) && (nextX == getXCoordinate() || nextX == getXCoordinate() -1 || nextX == getXCoordinate() +1)){
+                        return true;
+                    }
+                    else
+                        return false;
+            }
+            return false;
+        }
 
-    protected String CurrentPositionAsString() {
-        String eol = System.lineSeparator();
-        return String.format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", eol, xCoordinate, yCoordinate, pieceColor);
+        @Override
+        public String toString() {
+            return CurrentPositionAsString();
+        }
+
+        protected String CurrentPositionAsString() {
+            String eol = System.lineSeparator();
+            return String.format("Current X: {1}{0}Current Y: {2}{0}Piece Color: {3}", eol, xCoordinate, yCoordinate, pieceColor);
+        }
     }
-}
